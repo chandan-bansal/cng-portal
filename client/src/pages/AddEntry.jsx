@@ -44,7 +44,8 @@ const AddEntry = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/tests', formData);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.post(`${apiUrl}/api/tests`, formData);
             toast.success('Entry added successfully!');
             // Clear storage on success
             localStorage.removeItem('addEntryForm');

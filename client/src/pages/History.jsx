@@ -25,7 +25,8 @@ const History = () => {
             if (startDate) params.append('startDate', startDate);
             if (endDate) params.append('endDate', endDate);
 
-            const res = await axios.get(`http://localhost:5000/api/tests?${params.toString()}`);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const res = await axios.get(`${apiUrl}/api/tests?${params.toString()}`);
             setTests(res.data);
         } catch (err) {
             console.error(err);
@@ -57,7 +58,8 @@ const History = () => {
     const saveEdit = async () => {
         try {
             const { _id, __v, createdAt, updatedAt, ...payload } = editForm;
-            await axios.put(`http://localhost:5000/api/tests/${editingId}`, payload);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.put(`${apiUrl}/api/tests/${editingId}`, payload);
             toast.success('Entry updated');
             setEditingId(null);
             fetchTests();

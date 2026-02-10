@@ -13,9 +13,10 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
                 const [alertsRes, statsRes] = await Promise.all([
-                    axios.get(`http://localhost:5000/api/tests/alerts?search=${alertSearch}`),
-                    axios.get(`http://localhost:5000/api/tests/stats?month=${selectedDate.split('-')[1]}&year=${selectedDate.split('-')[0]}`)
+                    axios.get(`${apiUrl}/api/tests/alerts?search=${alertSearch}`),
+                    axios.get(`${apiUrl}/api/tests/stats?month=${selectedDate.split('-')[1]}&year=${selectedDate.split('-')[0]}`)
                 ]);
 
                 setAlerts(alertsRes.data);
